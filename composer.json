@@ -1,5 +1,5 @@
 {
-    "name": "pashaBolshov/symfony-elasticsearch",
+    "name": "pashabolshov/symfony-elasticsearch",
     "description": "Elasticsearch bundle for Symfony 4+",
     "type" : "symfony-bundle",
     "autoload": {
