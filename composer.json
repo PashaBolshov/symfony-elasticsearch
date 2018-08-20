@@ -18,9 +18,6 @@
         "ext-iconv": "*",
         "ruflin/elastica": "^6.0",
         "symfony/flex": "^1.0",
-        "symfony/framework-bundle": "^4.1",
-        "sensio/framework-extra-bundle": "^5.2",
-        "symfony/lts": "^4@dev",
         "symfony/yaml": "^4.1"
     }
 }
