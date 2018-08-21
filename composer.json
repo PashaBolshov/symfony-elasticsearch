@@ -1,5 +1,5 @@
 {
-    "name": "Pavlik/symfony-elasticsearch",
+    "name": "pavlik/symfony-elasticsearch",
     "description": "Elasticsearch bundle for Symfony 4+",
     "type" : "symfony-bundle",
     "autoload": {
