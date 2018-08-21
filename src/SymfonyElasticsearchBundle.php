@@ -1,10 +1,10 @@
 <?php
 
-namespace pashaBolshov\SymfonyElasticsearchBundle;
+namespace Bpp\ElasticsearchBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class SymfonyElasticsearchBundle extends Bundle 
+class ElasticsearchBundle extends Bundle 
 {
 
 }
