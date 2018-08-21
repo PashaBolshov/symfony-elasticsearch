@@ -1,6 +1,6 @@
 <?php
 
-namespace Bpp\ElasticsearchBundle\Configuration;
+namespace Pavlik\ElasticsearchBundle\Configuration;
 
 class Configuration
 {

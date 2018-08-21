@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Bpp\ElasticsearchBundle\Client;
+namespace Pavlik\ElasticsearchBundle\Client;
 
 use Elastica\Client as BaseClient;
 

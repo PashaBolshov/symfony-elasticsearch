@@ -1,6 +1,6 @@
 <?php
 
-namespace Bpp\ElasticsearchBundle\DependencyInjection;
+namespace Pavlik\ElasticsearchBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -11,7 +11,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('bpp_elasticsearch');
+        $rootNode = $treeBuilder->root('Pavlik_elasticsearch');
 
         $this->addManagersSection($rootNode);
         $this->addClientsSection($rootNode);
@@ -20,7 +20,7 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * Adds the bpp_elasticsearch.clients configuration
+     * Adds the Pavlik_elasticsearch.clients configuration
      *
      * @param ArrayNodeDefinition $rootNode
      */
@@ -42,7 +42,7 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * Adds the bpp_elasticsearch.managers configuration
+     * Adds the Pavlik_elasticsearch.managers configuration
      *
      * @param ArrayNodeDefinition $rootNode
      */

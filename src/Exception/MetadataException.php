@@ -1,6 +1,6 @@
 <?php
 
-namespace Bpp\ElasticsearchBundle\Exception;
+namespace Pavlik\ElasticsearchBundle\Exception;
 
 class MetadataException extends Exception
 {

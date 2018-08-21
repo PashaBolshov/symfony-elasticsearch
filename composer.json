@@ -1,15 +1,15 @@
 {
-    "name": "bpp/symfony-elasticsearch",
+    "name": "Pavlik/symfony-elasticsearch",
     "description": "Elasticsearch bundle for Symfony 4+",
     "type" : "symfony-bundle",
     "autoload": {
         "psr-4": {
-            "Bpp\\ElasticsearchBundle\\": "src"
+            "Pavlik\\ElasticsearchBundle\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Bpp\\ElasticsearchBundle\\Tests\\": "tests"
+            "Pbp\\ElasticsearchBundle\\Tests\\": "tests"
         }
     },
     "require": {

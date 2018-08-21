@@ -8,7 +8,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;
 
-class PavlikElasticsearch extends Extension
+class SymfonyElasticsearchExtension extends Extension
 {
     /**
      * {@inheritdoc}

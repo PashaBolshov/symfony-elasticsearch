@@ -1,6 +1,6 @@
 <?php
 
-namespace Bpp\ElasticsearchBundle\Annotation;
+namespace Pavlik\ElasticsearchBundle\Annotation;
 
 
 class Property

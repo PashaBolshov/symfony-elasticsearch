@@ -1,13 +1,13 @@
 <?php
 
-namespace Bpp\ElasticsearchBundle;
+namespace Pavlik\ElasticsearchBundle;
 
-use Bpp\ElasticsearchBundle\Exception\ClassNotFoundException;
-use Bpp\ElasticsearchBundle\Configuration\Configuration;
+use Pavlik\ElasticsearchBundle\Exception\ClassNotFoundException;
+use Pavlik\ElasticsearchBundle\Configuration\Configuration;
 
 use Doctrine\Common\Annotations\AnnotationReader;
-use Bpp\ElasticsearchBundle\Exception\MetadataException;
-use Bpp\ElasticsearchBundle\Annotation\Property;
+use Pavlik\ElasticsearchBundle\Exception\MetadataException;
+use Pavlik\ElasticsearchBundle\Annotation\Property;
 
 class MetadataFactory
 {

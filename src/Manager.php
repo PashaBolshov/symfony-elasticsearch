@@ -1,6 +1,6 @@
 <?php
 
-namespace Bpp\ElasticsearchBundle;
+namespace Pavlik\ElasticsearchBundle;
 
 class Manager
 {
