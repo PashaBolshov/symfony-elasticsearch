@@ -11,7 +11,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('Pavlik_elasticsearch');
+        $rootNode = $treeBuilder->root('pavlik_elasticsearch');
 
         $this->addManagersSection($rootNode);
         $this->addClientsSection($rootNode);
@@ -20,7 +20,7 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * Adds the Pavlik_elasticsearch.clients configuration
+     * Adds the pavlik_elasticsearch.clients configuration
      *
      * @param ArrayNodeDefinition $rootNode
      */
@@ -42,7 +42,7 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * Adds the Pavlik_elasticsearch.managers configuration
+     * Adds the pavlik_elasticsearch.managers configuration
      *
      * @param ArrayNodeDefinition $rootNode
      */
