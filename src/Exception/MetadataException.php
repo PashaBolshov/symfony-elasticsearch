@@ -2,7 +2,7 @@
 
 namespace Pavlik\ElasticsearchBundle\Exception;
 
-class MetadataException extends Exception
+class MetadataException extends ElasticsearchBundleException
 {
     
 }

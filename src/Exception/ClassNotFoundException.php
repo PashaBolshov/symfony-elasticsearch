@@ -3,7 +3,7 @@
 
 namespace Pavlik\ElasticsearchBundle\Exception;
 
-class ClassNotFoundException extends Exception
+class ClassNotFoundException extends ElasticsearchBundleException
 {
     
 }

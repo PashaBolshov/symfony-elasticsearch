@@ -2,7 +2,13 @@
 
 namespace Pavlik\ElasticsearchBundle\Annotation;
 
-class Document
+use Doctrine\Common\Annotations\Annotation;
+
+/**
+ * @Annotation
+ * @Target("CLASS")
+ */
+final class Document
 {
-    
+    public $repository;
 }

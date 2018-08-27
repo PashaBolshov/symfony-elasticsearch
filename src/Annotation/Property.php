@@ -2,8 +2,13 @@
 
 namespace Pavlik\ElasticsearchBundle\Annotation;
 
+use Doctrine\Common\Annotations\Annotation;
 
-class Property
+/**
+ * @Annotation
+ * @Target("PROPERTY")
+ */
+final class Property
 {
     public $name;
 

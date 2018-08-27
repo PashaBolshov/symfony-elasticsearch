@@ -2,9 +2,7 @@
 
 namespace Pavlik\ElasticsearchBundle\Exception;
 
-use Exception as BaseException;
-
-class Exception extends BaseException
+class ElasticsearchBundleException extends \Exception
 {
 
 }

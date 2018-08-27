@@ -6,11 +6,9 @@ use Doctrine\Common\Annotations\Annotation;
 
 /**
  * @Annotation
- * @Target("CLASS")
+ * @Target("PROPERTY")
  */
-final class Index
+final class Id extends Parameter
 {
-    public $name;
-
-    public $type = '_doc'; 
+    public $name = '_id';
 }

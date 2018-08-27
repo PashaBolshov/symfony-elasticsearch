@@ -6,11 +6,8 @@ use Doctrine\Common\Annotations\Annotation;
 
 /**
  * @Annotation
- * @Target("CLASS")
+ * @Target("PROPERTY")
  */
-final class Index
+final class JoinParent
 {
-    public $name;
-
-    public $type = '_doc'; 
 }

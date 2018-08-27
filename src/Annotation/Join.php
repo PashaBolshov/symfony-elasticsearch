@@ -2,7 +2,13 @@
 
 namespace Pavlik\ElasticsearchBundle\Annotation;
 
-class Join
+use Doctrine\Common\Annotations\Annotation;
+
+/**
+ * @Annotation
+ * @Target("CLASS")
+ */
+final class Join
 {
     public $property;
 

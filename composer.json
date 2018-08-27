@@ -9,7 +9,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Pbp\\ElasticsearchBundle\\Tests\\": "tests"
+            "Pavlik\\ElasticsearchBundle\\Tests\\": "tests"
         }
     },
     "require": {

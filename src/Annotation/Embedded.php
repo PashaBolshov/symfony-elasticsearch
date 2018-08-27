@@ -6,11 +6,11 @@ use Doctrine\Common\Annotations\Annotation;
 
 /**
  * @Annotation
- * @Target("CLASS")
+ * @Target("PROPERTY")
  */
-final class Index
+final class Embedded
 {
-    public $name;
+    public $class;
 
-    public $type = '_doc'; 
+    public $prefix;
 }

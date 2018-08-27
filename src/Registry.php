@@ -1,7 +1,8 @@
 <?php
 
+namespace Pavlik\ElasticsearchBundle;
 
-class Registry
+abstract class Registry
 {
     /**
      * @var string 
@@ -45,6 +46,12 @@ class Registry
     }
 
     /**
+     * @return object
+     */
+    abstract protected function getService($serviceName);
+
+    /**
+     * @return Manager
      * @throws \InvalidArgumentException
      */
     public function getManager($name = null)
