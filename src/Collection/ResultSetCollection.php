@@ -7,7 +7,7 @@ use Elastica\ResultSet;
 use Pavlik\ElasticsearchBundle\Manager;
 use Pavlik\ElasticsearchBundle\Transformer\TransformerInterface;
 
-class ResultSetCollection implements CollectionInterface
+class ResultSetCollection implements AggregationCollectionInterface
 {
     /**
      * @var ResultSet
@@ -34,11 +34,41 @@ class ResultSetCollection implements CollectionInterface
         $this->manager   = $manager;
     }
 
+    /**
+     * {@inheritdoc} 
+     */
     public function rewind() 
     {
         $this->resultSet->rewind();
     }
 
+    /**
+     * {@inheritdoc} 
+     */
+    public function getAggregations() 
+    {
+        return $this->resultSet->getAggregations();
+    }
+
+    /**
+     * {@inheritdoc} 
+     */
+    public function getAggregation($name) 
+    {
+        return $this->resultSet->getAggregation($name);
+    }
+
+    /**
+     * {@inheritdoc} 
+     */
+    public function hasAggregations() 
+    {
+        return $this->resultSet->hasAggregations();
+    }
+
+    /**
+     * {@inheritdoc} 
+     */
     public function current() 
     {
         $result = $this->resultSet->current();
@@ -53,21 +83,33 @@ class ResultSetCollection implements CollectionInterface
         return $transformer->transformToEntity($item, $metadata);
     }
 
+    /**
+     * {@inheritdoc} 
+     */
     public function key() 
     {
         return $this->resultSet->key();
     }
 
+    /**
+     * {@inheritdoc} 
+     */
     public function next() 
     {
         $this->resultSet->next();
     }
 
+    /**
+     * {@inheritdoc} 
+     */
     public function valid() 
     {
         return $this->resultSet->valid();
     }
 
+    /**
+     * {@inheritdoc} 
+     */
     public function count()
     {
         return $this->resultSet->getTotalHits();
