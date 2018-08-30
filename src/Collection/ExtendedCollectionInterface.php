@@ -3,8 +3,18 @@
 namespace Pavlik\ElasticsearchBundle\Collection;
 
 
-interface AggregationCollectionInterface extends CollectionInterface
+interface ExtendedCollectionInterface extends CollectionInterface
 {
+    /**
+     * @return bool
+     */
+    public function hasSuggests();
+
+    /**
+     * @return array
+     */
+    public function getSuggests();
+
     /**
      * @return bool
      */
@@ -14,6 +24,11 @@ interface AggregationCollectionInterface extends CollectionInterface
      * @return array
      */
     public function getAggregations();
+
+    /**
+     * @return int
+     */
+    public function getTotalHits();
 
     /**
      * @param string $name

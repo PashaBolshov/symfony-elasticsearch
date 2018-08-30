@@ -4,6 +4,7 @@ namespace Pavlik\ElasticsearchBundle\Transformer;
 
 use Pavlik\ElasticsearchBundle\Annotation\Metadata;
 use Pavlik\ElasticsearchBundle\Annotation\EmbeddedMetadata;
+use Pavlik\ElasticsearchBundle\Annotation\NestedMetadata;
 use Elastica\Document;
 use Pavlik\ElasticsearchBundle\Annotation\JoinName;
 use Pavlik\ElasticsearchBundle\Annotation\JoinParent;
@@ -58,6 +59,13 @@ class Transformer implements TransformerInterface
                 foreach($values as $key => $value) {
                     $data[$prefix . $key] = $value;
                 }
+            }elseif( $elasticProperty instanceof NestedMetadata ) {
+                $array = [];
+                foreach($value as $val) {
+                    list($val) = $this->getEntityData($val, $elasticProperty->getMetadata());
+                    $array[] = $val;
+                }
+                $data[$elasticProperty->getElasticProperty()] = $array;
             } elseif( $elasticProperty instanceof JoinName ) {
                 $elasticProperty = $metadata->getElasticJoinPropertyName();
                 $data[$elasticProperty] = $data[$elasticProperty] ?? [];
@@ -68,7 +76,6 @@ class Transformer implements TransformerInterface
                 $data[$elasticProperty] = $data[$elasticProperty] ?? [];
                 $data[$elasticProperty]['parent'] = $value;
             } else {
-
                 if( $metadata->isElasticParameter($elasticProperty) ) {
                     $params[$elasticProperty] = $value;
                 } else {
@@ -93,6 +100,7 @@ class Transformer implements TransformerInterface
 
         $entitityProperties = $metadata->getEntityProperties();
         foreach($entitityProperties as $entitityProperty => $elasticProperty) {
+
             $value = null;
             if( $metadata->isElasticParameter($elasticProperty) ) {
                 $source = $params;
@@ -131,6 +139,17 @@ class Transformer implements TransformerInterface
                 $elasticProperty = $metadata->getElasticJoinPropertyName();
                 $joinData = $source[$elasticProperty];
                 $value = $joinData['parent'] ?? null;
+
+            } elseif( $elasticProperty instanceof NestedMetadata ) {
+
+                $array = $source[$elasticProperty->getElasticProperty()];
+                $value = [];
+                if( is_array($array) ) {
+                    foreach($array as $val) {
+                        $value[] = $this->setEntityData($val, [], $elasticProperty->getMetadata());
+                    }
+                }
+
             } else {
                 $value = $source[$elasticProperty] ?? null;
             }

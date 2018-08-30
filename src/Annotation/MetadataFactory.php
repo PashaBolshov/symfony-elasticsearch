@@ -132,6 +132,7 @@ class MetadataFactory
         }
 
         $properties = $reflectionClass->getProperties();
+
         foreach ($properties as $property) {
             $annotations = $annotationReader->getPropertyAnnotations($property);
             foreach($annotations as $annotation) {
@@ -171,6 +172,22 @@ class MetadataFactory
                         $metadata->addElasticProperty($elasticProperty, $options);
                     }
 
+                } elseif ( $annotation instanceof Nested ) {
+                    $class = $annotation->class;
+                    if( ! class_exists($class) ) {
+                        throw new MetadataException('Class ' . $class . ' does not exist');
+                    }
+
+                    $classMetadata = $this->parseClassMetadata($class);
+                    $nestedMetadata = new NestedMetadata($classMetadata, $annotation->name);
+                    $metadata->addEntityProperty($property->getName(), $nestedMetadata);
+
+                    $options = [];
+                    if( ! empty($annotation->options) && is_array($annotation->options)) {
+                        $options = $annotation->options;
+                    }
+                    $options['type'] = 'nested';
+                    $metadata->addElasticProperty($annotation->name, $options);
                 } elseif ( $annotation instanceof Parameter ) {
                     $metadata->addEntityProperty($property->getName(), $annotation->name);
                     $metadata->addElasticProperty($annotation->name, [], true);

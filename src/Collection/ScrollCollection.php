@@ -70,7 +70,7 @@ class ScrollCollection implements CollectionInterface
     public function current() 
     {
         $item = $this->items[$this->position];
-        if( $this->mode == self::MODE_DOCUNENT ) {
+        if( $this->mode == self::MODE_DOCUMENT ) {
             return $item;
         }
 

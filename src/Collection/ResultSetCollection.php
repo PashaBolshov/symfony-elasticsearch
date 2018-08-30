@@ -7,7 +7,7 @@ use Elastica\ResultSet;
 use Pavlik\ElasticsearchBundle\Manager;
 use Pavlik\ElasticsearchBundle\Transformer\TransformerInterface;
 
-class ResultSetCollection implements AggregationCollectionInterface
+class ResultSetCollection implements ExtendedCollectionInterface
 {
     /**
      * @var ResultSet
@@ -69,12 +69,28 @@ class ResultSetCollection implements AggregationCollectionInterface
     /**
      * {@inheritdoc} 
      */
+    public function hasSuggests()
+    {
+        return $this->resultSet->hasSuggests();
+    }
+
+    /**
+     * {@inheritdoc} 
+     */
+    public function getSuggests()
+    {
+        return $this->resultSet->getSuggests();
+    }
+
+    /**
+     * {@inheritdoc} 
+     */
     public function current() 
     {
         $result = $this->resultSet->current();
         $item = $result->getDocument();
 
-        if( $this->mode == self::MODE_DOCUNENT ) {
+        if( $this->mode == self::MODE_DOCUMENT ) {
             return $item;
         }
 
@@ -111,6 +127,14 @@ class ResultSetCollection implements AggregationCollectionInterface
      * {@inheritdoc} 
      */
     public function count()
+    {
+        return $this->resultSet->count();
+    }
+
+    /**
+     * {@inheritdoc} 
+     */
+    public function getTotalHits()
     {
         return $this->resultSet->getTotalHits();
     }
