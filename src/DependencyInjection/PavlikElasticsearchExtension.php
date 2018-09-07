@@ -77,7 +77,9 @@ class PavlikElasticsearchExtension extends Extension
             }
 
             $clientParams = [
-                'servers' => $servers
+                'servers'    => $servers,
+                'roundRobin' => true,
+                'timeout'    => 60
             ];
 
             $parameterDef = new Definition($defenationClass);
