@@ -10,5 +10,5 @@ use Doctrine\Common\Annotations\Annotation;
  */
 final class Routing extends Parameter
 {
-    public $name = 'routing';
+    public $name = '_routing';
 }
