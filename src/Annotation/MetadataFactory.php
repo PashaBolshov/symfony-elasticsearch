@@ -67,12 +67,17 @@ class MetadataFactory
 
         $this->loadCachedMetadata($className);
         if( isset($this->metadatas[$className]) ) {
-            return $this->metadatas[$className];
+            $metadata = $this->metadatas[$className];
         }
 
-        $this->metadatas[$className] = $this->parseClassMetadata($className);
-        $this->cacheMetadata($className, $this->metadatas[$className]);
-        return $this->metadatas[$className];
+        if( empty($metadata) ) {
+            $metadata = $this->metadatas[$className] = $this->parseClassMetadata($className);
+            $this->cacheMetadata($className, $this->metadatas[$className]);
+        }
+
+        $metadata->setIndexPrefix($this->configuration->getIndicesPrefix());
+
+        return $metadata;
     }
 
     /**
@@ -114,7 +119,6 @@ class MetadataFactory
                 }
 
                 $metadata->setIndex($index);
-                $metadata->setIndexPrefix($this->configuration->getIndicesPrefix());
 
                 $type = $annotation->type;
                 if( empty($type) ) {
