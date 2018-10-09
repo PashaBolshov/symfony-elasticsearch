@@ -77,7 +77,9 @@ class Persister
         $search = new Search($this->manager->getClient());
         $search->addIndex($this->metadata->getIndexName())
             ->addType($this->metadata->getType())
-            ->setQuery($query);
+            ->setQuery($query)
+            ->getQuery()
+            ->setSize(10000);
 
         $resultSet = $search->search();
 
