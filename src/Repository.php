@@ -29,22 +29,41 @@ class Repository
     }
 
     /**
+     * @param int $scrollSize Default 10.
+     * @param string|int $contextTtl 1m == 60 == 60s
      * @return CollectionInterface
      * @throws
      */
-    public function findAll()
+    public function scrollAll($scrollSize = null, $contextTtl = '1m')
     {
         $persister = $this->manager->getTransshipment()->getPersister($this->metadata->getClassName());
-        return $persister->loadAll();
+        return $persister->scroll([], [], $scrollSize, $contextTtl);
     }
 
     /**
      * @param array $criteria
+     * @param array $order
+     * @param int $scrollSize Default 10.
+     * @param string|int $contextTtl 1m == 60 == 60s
+     * @return CollectionInterface
      */
-    public function findBy($criterias = [])
+    public function scrollBy($criterias = [], $order = [], $scrollSize = null, $contextTtl = '1m')
     {
         $persister = $this->manager->getTransshipment()->getPersister($this->metadata->getClassName());
-        return $persister->load($criterias);
+        return $persister->scroll($criterias, $order, $scrollSize, $contextTtl);
+    }
+
+    /**
+     * @param array $criteria
+     * @param array $order
+     * @param int $size
+     * @param int $from
+     * @return CollectionInterface
+     */
+    public function findBy($criterias = [], $order = [], $size = null, $from = null)
+    {
+        $persister = $this->manager->getTransshipment()->getPersister($this->metadata->getClassName());
+        return $persister->load($criterias, $order, $size, $from);
     }
 
     /**

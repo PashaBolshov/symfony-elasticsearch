@@ -12,6 +12,7 @@ use Pavlik\ElasticsearchBundle\Collection\ResultSetCollection;
 
 use Elastica\Search;
 use Elastica\Scroll;
+use Elastica\Query;
 use Elastica\Bulk\Action\AbstractDocument;
 
 
@@ -40,49 +41,30 @@ class Persister
     /**
      * @return CollectionInterface
      */
-    public function loadAll()
+    public function scroll($criterias = [], $order = [], $scrollSize = null, $contextTtl = '1m')
     {
+        $query  = $this->getQuery($criterias, $order, $scrollSize);
         $search = new Search($this->manager->getClient());
         $search->addIndex($this->metadata->getIndexName())
-            ->addType($this->metadata->getType())
-            ->getQuery()
-            ->setSize(10000);
-        
-        $scroll = new Scroll($search);
+                ->addType($this->metadata->getType())
+                ->setQuery($query);
 
+        $scroll = new Scroll($search, $contextTtl);
         return new ScrollCollection($scroll, $this->manager);
     }
 
     /**
      * @return CollectionInterface
      */
-    public function load($criterias = [])
+    public function load($criterias = [], $order = [], $size = null, $from = null)
     {
-        $qb = $this->manager->getQueryBuilder();
-        $qb->addAlias('e', $this->metadata->getClassName());
-
-        $query = $qb->query()->bool();
-
-        foreach($criterias as $entityProperty => $value ) {
-            if( is_array($value) ) {
-                $filter = $qb->query()->terms($qb->prop('e.' . $entityProperty), $value);
-            }
-            else {
-                $filter = $qb->query()->term([$qb->prop('e.' . $entityProperty) => $value]);
-            }
-
-            $query->addMust($filter);
-        }
-
+        $query  = $this->getQuery($criterias, $order, $size, $from);
         $search = new Search($this->manager->getClient());
         $search->addIndex($this->metadata->getIndexName())
-            ->addType($this->metadata->getType())
-            ->setQuery($query)
-            ->getQuery()
-            ->setSize(10000);
+                ->addType($this->metadata->getType())
+                ->setQuery($query);
 
         $resultSet = $search->search();
-
         return new ResultSetCollection($resultSet, $this->manager);
     }    
 
@@ -107,5 +89,52 @@ class Persister
         $document = $transformer->transformToDoc($entity, $this->metadata);
 
         return AbstractDocument::create($document, $actionType);
+    }
+
+    /**
+     * @param array $criteria
+     * @param array $order
+     * @param int $size
+     * @param int $from
+     * @return Query
+     */
+    protected function getQuery($criterias = [], $order = [], $size = null, $from = null)
+    {
+        $qb = $this->manager->getQueryBuilder();
+        $qb->addAlias('e', $this->metadata->getClassName());
+
+        if( count($criterias) > 0 ) {
+            $query = $qb->query()->bool();
+            foreach($criterias as $entityProperty => $value ) {
+                if( is_array($value) ) {
+                    $filter = $qb->query()->terms($qb->prop('e.' . $entityProperty), $value);
+                }
+                else {
+                    $filter = $qb->query()->term([$qb->prop('e.' . $entityProperty) => $value]);
+                }
+
+                $query->addMust($filter);
+            }
+        } else {            
+            $query = $qb->query()->match_all();
+        }
+
+        $query = new Query($query);
+        
+        foreach($order as $entityProperty => $direction) {
+            $alias = $qb->prop('e.' . $entityProperty);
+            $field = $alias ? $alias : $entityProperty;
+            $query->addSort([$alias =>$direction]);
+        }
+
+        if( ! is_null($from) ) {
+            $query->setFrom($from);
+        }
+
+        if( ! is_null($size) ) {
+            $query->setSize($size);
+        }
+
+        return $query;
     }
 }
