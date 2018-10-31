@@ -83,13 +83,13 @@ class PavlikElasticsearchExtension extends Extension
             ];
 
             $parameterDef = new Definition($defenationClass);
-            $parameterDef->setPublic(false);
+            $parameterDef->setPublic(true);
             $parameterDef->addArgument($clientParams);
             $container->setDefinition($parameterId, $parameterDef);
 
             if( $name === 'default' ) {
                 $container->setAlias('pavlik_elasticsearch.client', new Alias($parameterId, true));
-                $container->setAlias($defenationClass, $parameterId);
+                $container->setAlias($defenationClass, new Alias($parameterId, false));
             }
         }
 
